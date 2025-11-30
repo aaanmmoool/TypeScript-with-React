@@ -1,0 +1,199 @@
+/* --- GLOBAL RESET & VARIABLES --- */
+:root {
+  --bg-color: #09090b; /* Very dark zinc */
+  --card-bg: #18181b;
+  --card-border: #27272a;
+  --primary: #fafafa;
+  --text-main: #e4e4e7;
+  --text-muted: #a1a1aa;
+  --accent: #3b82f6; /* Professional Blue */
+  --danger: #ef4444;
+  --success: #22c55e;
+  --radius: 8px;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  margin-bottom: 2.5rem;
+  color: var(--primary);
+  /* Removed cheap text gradient, sticking to solid professional white */
+}
+
+/* --- INPUT SECTION --- */
+.input-group {
+  margin-bottom: 4rem;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+input[type="text"] {
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  width: 320px;
+  background-color: var(--card-bg);
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus {
+  border-color: var(--text-muted);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
+}
+
+button.add-btn {
+  padding: 0.8rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background-color: var(--primary);
+  color: black;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+button.add-btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+button.add-btn:disabled {
+  background-color: var(--card-border);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+/* --- GRID LAYOUT --- */
+.tasks-container {
+  display: grid;
+  /* Reduced min-width to 250px to ensure grid behavior on smaller screens */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* --- CARD STYLES --- */
+.task-card {
+  position: relative;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+/* Clean Hover Effect */
+.task-card:hover {
+  border-color: var(--text-muted);
+  transform: translateY(-2px);
+}
+
+/* Completed State - Subtle dimming instead of color change */
+.task-card.completed {
+  opacity: 0.6;
+  border-style: dashed;
+}
+
+.task-card.completed h3 {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* --- TEXT STYLES --- */
+.task-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-main);
+  line-height: 1.5;
+  word-wrap: break-word;
+  padding-right: 20px; /* Prevent text from hitting the X button */
+}
+
+.timestamp {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+/* --- DELETE BUTTON (X) --- */
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;  /* Fixed width */
+  height: 28px; /* Fixed height */
+  display: flex; /* Flexbox for perfect centering */
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--card-border);
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+/* Only show clearly on card hover */
+.task-card:hover .delete-btn {
+  color: var(--text-muted);
+}
+
+.delete-btn:hover {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--danger) !important;
+}
+
+/* --- TOGGLE BUTTON --- */
+.status-btn {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 0.85rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.status-btn:hover {
+  background-color: var(--card-border);
+}
+
+.task-card.completed .status-btn {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.task-card.completed .status-btn:hover {
+  background-color: rgba(34, 197, 94, 0.1);
+}
